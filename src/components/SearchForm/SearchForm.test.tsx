@@ -6,12 +6,12 @@ import userEvent from "@testing-library/user-event"
 const handleSearchBook = jest.fn()
 
 describe("SearchForm", () => {
-  it("입력폼에 검색어를 입력한 후 Enter를 누르면 handleSearchBook이 호출된다.", () => {
+  it("입력폼에 검색어를 입력한 후 Enter를 누르면 handleSearchBook이 호출된다.", async () => {
     render(<SearchForm handleSearchBook={handleSearchBook} />)
 
     // 사용자가 텍스트를 입력합니다.
     const inputElement = screen.getByRole("textbox")
-    userEvent.type(inputElement, "tdd|javascript")
+    await userEvent.type(inputElement, "tdd|javascript")
 
     // Enter를 누릅니다.
     fireEvent.keyDown(inputElement, { key: "Enter", code: "Enter" })
