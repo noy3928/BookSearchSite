@@ -1,4 +1,4 @@
-import { resolveKeyword } from "./utils"
+import { resolveKeyword } from "../"
 
 describe("resolveKeyword", () => {
   it('"|" 연산자가 포함되어있으면 "or" 타입을 반환해야한다.', () => {
