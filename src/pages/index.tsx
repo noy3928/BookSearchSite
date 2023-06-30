@@ -1,7 +1,13 @@
 import { Inter } from "next/font/google"
+import Link from "next/link"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export default function Home() {
-  return <div>This is Home!</div>
+  return (
+    <div>
+      This is Home!
+      <Link href="/">Home</Link>
+    </div>
+  )
 }
