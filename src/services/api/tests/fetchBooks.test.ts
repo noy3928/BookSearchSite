@@ -1,24 +1,30 @@
-import { fetchBooks } from "./utils" // 실제 모듈 경로로 변경해주세요.
+import { fetchBooks } from "../"
 import { books } from "@/shared/fixtures/book"
-import axios, { AxiosResponse } from "axios"
+import apiInstance from "../config"
 
-jest.mock("axios")
-const mockedAxios = axios as jest.Mocked<typeof axios>
+jest.mock("../config")
 
 describe("fetchBooks", () => {
-  it("keyword와 pageNumber를 이용해서 books를 fetch한다.", async () => {
-    const resp = { data: books }
-    mockedAxios.get.mockResolvedValue(resp as AxiosResponse)
+  beforeEach(() => {
+    ;(
+      apiInstance.get as jest.MockedFunction<typeof apiInstance.get>
+    ).mockResolvedValue({ data: books })
+  })
 
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
+  it("keyword와 pageNumber를 이용해서 books를 fetch한다.", async () => {
     const result = await fetchBooks("keyword", 1)
     expect(result).toEqual(books)
-    expect(axios.get).toHaveBeenCalledWith(expect.any(String), {
-      params: { q: "keyword", page: 1 },
-    })
+    expect(apiInstance.get).toHaveBeenCalledWith(`/search/keyword/1`)
   })
 
   it("fetch 요청에 에러가 발생하면, 에러를 내뱉는다.", async () => {
-    mockedAxios.get.mockImplementationOnce(() =>
+    ;(
+      apiInstance.get as jest.MockedFunction<typeof apiInstance.get>
+    ).mockImplementationOnce(() =>
       Promise.reject(new Error("API request failed"))
     )
 
