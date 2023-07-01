@@ -1,13 +1,18 @@
-import { Inter } from "next/font/google"
-import Link from "next/link"
+import React, { useState } from "react"
+import BookList from "@/components/BookList/BookList"
+import SearchForm from "@/components/SearchForm/SearchForm"
 
-const inter = Inter({ subsets: ["latin"] })
+import { searchAndSetBooks } from "@/services/utils"
+import { Book } from "@/shared/types/book"
 
 export default function Home() {
+  const [books, setBooks] = useState<Book[]>([])
+  const handleSearchBook = searchAndSetBooks(setBooks)
+
   return (
     <div>
-      This is Home!
-      <Link href="/">Home</Link>
+      <SearchForm handleSearchBook={handleSearchBook} />
+      <BookList books={books} />
     </div>
   )
 }
