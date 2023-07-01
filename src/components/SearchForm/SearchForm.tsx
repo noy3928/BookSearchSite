@@ -6,7 +6,7 @@ interface Props {
 
 const SearchForm = ({ handleSearchBook }: Props) => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && e.currentTarget.value.trim() !== "") {
       handleSearchBook(e.currentTarget.value)
     }
   }

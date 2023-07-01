@@ -6,6 +6,10 @@ import userEvent from "@testing-library/user-event"
 const handleSearchBook = jest.fn()
 
 describe("SearchForm", () => {
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   it("입력폼에 검색어를 입력한 후 Enter를 누르면 handleSearchBook이 호출된다.", async () => {
     render(<SearchForm handleSearchBook={handleSearchBook} />)
 
@@ -19,5 +23,16 @@ describe("SearchForm", () => {
     // handleSearchBook 함수가 호출되었는지 확인합니다.
     expect(handleSearchBook).toHaveBeenCalled()
     expect(handleSearchBook).toHaveBeenCalledWith("tdd|javascript")
+  })
+
+  it("검색어 없이 Enter를 누르면 handleSearchBook이 호출되지 않는다.", async () => {
+    render(<SearchForm handleSearchBook={handleSearchBook} />)
+
+    // Enter를 누릅니다.
+    const inputElement = screen.getByRole("textbox")
+    fireEvent.keyDown(inputElement, { key: "Enter", code: "Enter" })
+
+    // handleSearchBook 함수가 호출되지 않았는지 확인합니다.
+    expect(handleSearchBook).not.toHaveBeenCalled()
   })
 })
