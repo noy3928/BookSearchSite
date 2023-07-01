@@ -21,6 +21,6 @@ describe("Book", () => {
   it("Book 컴포넌트를 클릭하면, detail 페이지로 이동한다", () => {
     const linkElement = screen.getByRole("link")
     expect(linkElement).toBeInTheDocument()
-    expect(linkElement.getAttribute("href")).toBe(`/detail/${book.id}`)
+    expect(linkElement.getAttribute("href")).toBe(`/detail/${book.isbn13}`)
   })
 })
