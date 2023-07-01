@@ -5,3 +5,8 @@ export type Book = {
   url: string
   id: string
 }
+
+export interface SearchType {
+  type: "or" | "not" | "normal" | null
+  keywords: string[]
+}
