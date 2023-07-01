@@ -1,11 +1,10 @@
 import { searchAndSetBooks } from "../"
-import { resolveKeyword, fetchBooksByType } from "@/services/utils"
+import { resolveKeyword } from "../resolveKeyword"
+import { fetchBooksByType } from "../fetchBooksByType"
 import { Book } from "@/shared/types/book"
 
-jest.mock("@/services/utils", () => ({
-  resolveKeyword: jest.fn(),
-  fetchBooksByType: jest.fn(),
-}))
+jest.mock("../resolveKeyword")
+jest.mock("../fetchBooksByType")
 
 describe("searchAndSetBooks", () => {
   const setState = jest.fn()
