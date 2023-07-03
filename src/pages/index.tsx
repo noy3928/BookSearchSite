@@ -51,13 +51,13 @@ export default function Home() {
 const ContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 500px;
   margin: 0 auto;
   position: relative;
   background-color: #fff;
   height: 100vh;
+  padding: 20px 20px;
 
   &::after {
     content: "";
