@@ -8,6 +8,9 @@ jest.mock("../fetchBooksByType")
 
 describe("searchAndSetBooks", () => {
   const setState = jest.fn()
+  const loadingDecorator = jest.fn(func => func)
+  const setTotalBooks = jest.fn()
+  const pageNumber = 1
   const keyword = "test"
   const resolvedKeyword = "resolvedTest"
   const books: Book[] = []
@@ -17,15 +20,20 @@ describe("searchAndSetBooks", () => {
   })
 
   it("주어진 함수들이 올바른 인자들로 호출된다. ", async () => {
-    ;(resolveKeyword as jest.Mock).mockResolvedValue(resolvedKeyword)
-    ;(fetchBooksByType as jest.Mock).mockResolvedValue(books)
+    ;(resolveKeyword as jest.Mock)
+      .mockResolvedValue(resolvedKeyword)(fetchBooksByType as jest.Mock)
+      .mockResolvedValue(books)
 
-    const search = searchAndSetBooks(setState)
+    const search =
+      searchAndSetBooks(setState)(loadingDecorator)(setTotalBooks)(pageNumber)
 
     await search(keyword)
 
     expect(resolveKeyword).toHaveBeenCalledWith(keyword)
-    expect(fetchBooksByType).toHaveBeenCalledWith(resolvedKeyword)
+    expect(fetchBooksByType).toHaveBeenCalledWith(pageNumber)(setTotalBooks)(
+      resolvedKeyword
+    )
+    expect(loadingDecorator).toHaveBeenCalled()
     expect(setState).toHaveBeenCalledWith(books)
   })
 })
