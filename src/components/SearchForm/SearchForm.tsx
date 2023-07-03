@@ -33,6 +33,7 @@ const Input = styled.input`
   width: 100%;
   padding: 15px 15px;
   outline: none;
+  margin: 25px 0;
 
   ::placeholder {
     color: ${theme.colors.gray200};
