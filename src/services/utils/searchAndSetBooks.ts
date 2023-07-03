@@ -6,11 +6,9 @@ export const searchAndSetBooks =
   (loadingDecorator: (func: Function) => (args: any) => Promise<any>) =>
   (setTotalBooks: (total: number) => void) =>
   (pageNumber: number) =>
-  (keyword: string) => {
-    console.log(fetchBooksByType)
+  (keyword: string) =>
     pipe(
       resolveKeyword,
       loadingDecorator(fetchBooksByType(pageNumber)(setTotalBooks)),
       setState
     )(keyword)
-  }
