@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react"
 import BookList from "@/components/BookList/BookList"
 import SearchForm from "@/components/SearchForm/SearchForm"
+import Container from "@/components/Container/Container"
 
 import { searchAndSetBooks, loadingDecorator } from "@/services/utils"
 import { Book } from "@/shared/types/book"
 import { useIntersectionObserver } from "@/services/hooks/useIntersectionObserver"
-
-// import styled from "@emotion/react"
-import styled from "@emotion/styled"
 
 export default function Home() {
   const [books, setBooks] = useState<Book[]>([])
@@ -37,35 +35,13 @@ export default function Home() {
   }, [pageNumber])
 
   return (
-    <ContainerStyle>
+    <Container>
       <SearchForm
         handleSearchBook={handleSearchBook(pageNumber)}
         setKeyword={setKeyword}
       />
       <BookList books={books} ref={ref} />
       {isLoading && <div>로딩중...</div>}
-    </ContainerStyle>
+    </Container>
   )
 }
-
-const ContainerStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 500px;
-  margin: 0 auto;
-  position: relative;
-  background-color: #fff;
-  height: 100vh;
-  padding: 20px 20px;
-
-  &::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-    z-index: -1;
-  }
-`
