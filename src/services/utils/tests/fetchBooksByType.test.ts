@@ -16,7 +16,7 @@ const mockBookResponse: BookResponse = {
 describe("fetchBooksByType", () => {
   const setTotalBooks = jest.fn()
 
-  const mockFecthBooksByType => fetchBooksByType(1)(setTotalBooks)
+  const mockFecthBooksByType = fetchBooksByType(1)(setTotalBooks)
 
   afterEach(() => {
     jest.clearAllMocks()
@@ -41,7 +41,10 @@ describe("fetchBooksByType", () => {
   describe("type이 'or'이면", () => {
     it("2번 fetchBooks를 호출한다.", async () => {
       ;(fetchBooks as jest.Mock).mockResolvedValue(mockBookResponse)
-      await mockFecthBooksByType({ type: "or", keywords: ["keyword1", "keyword2"] })
+      await mockFecthBooksByType({
+        type: "or",
+        keywords: ["keyword1", "keyword2"],
+      })
       expect(fetchBooks).toHaveBeenCalledTimes(2)
       expect(setTotalBooks).toBeCalled()
     })
