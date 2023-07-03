@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import BookList from "@/components/BookList/BookList"
 import SearchForm from "@/components/SearchForm/SearchForm"
 import Container from "@/components/Container/Container"
+import Loading from "@/components/Loading/Loading"
 
 import { searchAndSetBooks, loadingDecorator } from "@/services/utils"
 import { Book } from "@/shared/types/book"
@@ -41,7 +42,7 @@ export default function Home() {
         setKeyword={setKeyword}
       />
       <BookList books={books} ref={ref} />
-      {isLoading && <div>로딩중...</div>}
+      {isLoading && <Loading />}
     </Container>
   )
 }
