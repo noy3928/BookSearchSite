@@ -5,15 +5,12 @@ describe("useIntersectionObserver", () => {
   let onIntersect: jest.Mock
   let observer: { observe: jest.Mock; disconnect: jest.Mock }
 
-  // Before each test, set up a mock IntersectionObserver and assign to the global variable
   beforeEach(() => {
     onIntersect = jest.fn()
     observer = {
       observe: jest.fn(),
       disconnect: jest.fn(),
     }
-
-    // Mock the global IntersectionObserver
     ;(window as any).IntersectionObserver = jest.fn(() => observer)
   })
 

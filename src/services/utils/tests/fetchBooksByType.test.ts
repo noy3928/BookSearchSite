@@ -14,22 +14,36 @@ const mockBookResponse: BookResponse = {
 }
 
 describe("fetchBooksByType", () => {
+  const setTotalBooks = jest.fn()
+
+  const mockFecthBooksByType => fetchBooksByType(1)(setTotalBooks)
+
   afterEach(() => {
     jest.clearAllMocks()
   })
 
+  describe("함수가 실행되고 값이 반환되면", () => {
+    it("전체 책의 갯수가 setTotalBooks에 전달된다.", async () => {
+      ;(fetchBooks as jest.Mock).mockResolvedValue(mockBookResponse)
+      await mockFecthBooksByType({ type: "normal", keywords: ["keyword1"] })
+      expect(setTotalBooks).toBeCalled()
+    })
+  })
+
   describe("type이 null이면", () => {
     it("null을 반환한다.", async () => {
-      const result = await fetchBooksByType({ type: null, keywords: [] })
+      const result = await mockFecthBooksByType({ type: null, keywords: [] })
       expect(result).toBeNull()
+      expect(setTotalBooks).not.toBeCalled()
     })
   })
 
   describe("type이 'or'이면", () => {
     it("2번 fetchBooks를 호출한다.", async () => {
       ;(fetchBooks as jest.Mock).mockResolvedValue(mockBookResponse)
-      await fetchBooksByType({ type: "or", keywords: ["keyword1", "keyword2"] })
+      await mockFecthBooksByType({ type: "or", keywords: ["keyword1", "keyword2"] })
       expect(fetchBooks).toHaveBeenCalledTimes(2)
+      expect(setTotalBooks).toBeCalled()
     })
   })
 
@@ -39,20 +53,22 @@ describe("fetchBooksByType", () => {
       ;(filterKeyword as jest.Mock).mockImplementation(
         (keyword: string, books: Book[]) => books
       )
-      await fetchBooksByType({
+      await mockFecthBooksByType({
         type: "not",
         keywords: ["keyword1", "keyword2"],
       })
       expect(fetchBooks).toBeCalled()
       expect(filterKeyword).toBeCalled()
+      expect(setTotalBooks).toBeCalled()
     })
   })
 
   describe("type이 'normal'이면", () => {
     it("해당 키워드로 fetchBooks를 호출한다.", async () => {
       ;(fetchBooks as jest.Mock).mockResolvedValue(mockBookResponse)
-      await fetchBooksByType({ type: "normal", keywords: ["keyword1"] })
+      await mockFecthBooksByType({ type: "normal", keywords: ["keyword1"] })
       expect(fetchBooks).toHaveBeenCalledTimes(1)
+      expect(setTotalBooks).toBeCalled()
     })
   })
 })
