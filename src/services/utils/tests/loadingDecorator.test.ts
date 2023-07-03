@@ -1,4 +1,4 @@
-import { loadingDecorator } from "./loadingDecorator"
+import { loadingDecorator } from "../"
 
 describe("loadingDecorator", () => {
   it("setIsLoading과 추가로 받아온 함수가 올바른 순서로 실행된다.", async () => {
