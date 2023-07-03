@@ -14,6 +14,18 @@ export type BookResponse = {
   total: string
 }
 
+export type BookDetail = {
+  title: string
+  subtitle: string
+  authors: string
+  publisher: string
+  pages: string
+  rating: string
+  desc: string
+  price: string
+  image: string
+}
+
 export interface SearchType {
   type: "or" | "not" | "normal" | null
   keywords: string[]
