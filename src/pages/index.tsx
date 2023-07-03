@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
 import BookList from "@/components/BookList/BookList"
 import SearchForm from "@/components/SearchForm/SearchForm"
+import Container from "@/components/Container/Container"
+import Loading from "@/components/Loading/Loading"
 
 import { searchAndSetBooks, loadingDecorator } from "@/services/utils"
 import { Book } from "@/shared/types/book"
@@ -34,13 +36,13 @@ export default function Home() {
   }, [pageNumber])
 
   return (
-    <div>
+    <Container>
       <SearchForm
         handleSearchBook={handleSearchBook(pageNumber)}
         setKeyword={setKeyword}
       />
       <BookList books={books} ref={ref} />
-      {isLoading && <div>로딩중...</div>}
-    </div>
+      {isLoading && <Loading />}
+    </Container>
   )
 }
