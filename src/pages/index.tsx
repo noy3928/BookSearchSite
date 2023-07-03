@@ -6,6 +6,9 @@ import { searchAndSetBooks, loadingDecorator } from "@/services/utils"
 import { Book } from "@/shared/types/book"
 import { useIntersectionObserver } from "@/services/hooks/useIntersectionObserver"
 
+// import styled from "@emotion/react"
+import styled from "@emotion/styled"
+
 export default function Home() {
   const [books, setBooks] = useState<Book[]>([])
   const [pageNumber, setPageNumber] = useState<number>(1)
@@ -34,13 +37,35 @@ export default function Home() {
   }, [pageNumber])
 
   return (
-    <div>
+    <ContainerStyle>
       <SearchForm
         handleSearchBook={handleSearchBook(pageNumber)}
         setKeyword={setKeyword}
       />
       <BookList books={books} ref={ref} />
       {isLoading && <div>로딩중...</div>}
-    </div>
+    </ContainerStyle>
   )
 }
+
+const ContainerStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  margin: 0 auto;
+  position: relative;
+  background-color: #fff;
+  height: 100vh;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: -1;
+  }
+`
